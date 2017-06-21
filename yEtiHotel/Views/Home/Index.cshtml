@@ -1,0 +1,60 @@
+﻿@model IEnumerable<yEtiHotel.Models.Room>
+
+@{
+    ViewBag.Title = "yEti Hotel";
+}
+
+<div class="jumbotron">
+    <h1>yEti Hotel</h1>
+    <p class="lead">Witamy na stronie yEti Hotel! W naszych pokojach poczują się Państwo wyjątkowo!</p>
+</div>
+<div class="row">
+    Pokoje cieszące się największą popularnością:
+    <table class="table">
+        <tr>
+            <th>Numer</th>
+            <th>Ilość sypialni</th>
+            <th>Powierzchnia</th>
+            <th>Cena</th>
+            <th>Ekspozycja</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bedrooms)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Area)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exposure)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <img class="room-img" src="~/Content/Images/1.jpg" />
+        <h2>Nasz hotel</h2>
+        <p>Przyjazny dla każdego</p>
+    </div>
+    <div class="col-md-4">
+        <img class="room-img" src="~/Content/Images/2.jpg" />
+        <h2>Piękny widokiem</h2>
+        <p>Odetchnij relaksując się widokiem gór</p>
+    </div>
+    <div  class="col-md-4">
+        <img class="room-img" src="~/Content/Images/3.jpg" />
+        <h2>Przytulne wnętrza</h2>
+        <p>U nas każdy czuje się wspaniale</p>
+    </div>
+</div>
