@@ -1,0 +1,10 @@
+{
+  "name": "bookshops",
+  "directory": "",
+  "componentsDirectory": "",
+  "dependencies": {
+    "angular": "1.6.4",
+    "ngDialog": "0.5.4",
+    "angular-ui-notification": "0.3.6"
+  }
+}

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="yeti">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,8 @@
         </footer>
     </div>
 
+    <script type="text/javascript" src="@Url.Content("/Scripts/dist/libs.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/dist/scripts.min.js")"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
