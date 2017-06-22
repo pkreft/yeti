@@ -189,6 +189,8 @@ node_modules/
 bower_components/
 yEtiHotel/Scripts/dist/*
 !yEtiHotel/Scripts/dist/.gitkeep
+yEtiHotel/Content/dist/*
+!yEtiHotel/Content/dist/.gitkeep
 orleans.codegen.cs
 
 # RIA/Silverlight projects

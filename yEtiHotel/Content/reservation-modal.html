@@ -1,0 +1,9 @@
+<p>Wybrany okres rezerwacji:</p>
+<p>{{ ngDialogData.range.startDate }} - {{ ngDialogData.range.endDate }}</p>
+<p>Koszt: <b>{{ ngDialogData.cost }}</b></p>
+
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">Anuluj</button>
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="reserve()">Rezerwuj</button>
+</div>
+<p>* dokonuj&#x105;c rezerwacji godzisz sie na warunki korzystania z serwisu.</p>
