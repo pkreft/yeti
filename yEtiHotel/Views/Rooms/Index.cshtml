@@ -12,23 +12,13 @@
         @Html.ActionLink("Utwórz", "Create")
     </p>
 }
-<table class="table">
+<table class="table" ng-controller="RoomController" ng-cloak>
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Number)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Bedrooms)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Area)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Exposure)
-        </th>
+        <th>Numer</th>
+        <th>Ilość sypialni</th>
+        <th>Powierzchnia</th>
+        <th>Cena</th>
+        <th>Ekspozycja</th>
         <th></th>
     </tr>
 
@@ -50,7 +40,15 @@
             @Html.DisplayFor(modelItem => item.Exposure)
         </td>
         <td>
-            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
+            @if (Request.IsAuthenticated)
+            {
+                <a class="btn btn-default btn-info" ng-date-time-picker="@Html.DisplayFor(modelItem => item.Id)" ng-auth="true" ng-model="range">Rezerwuj</a>
+            }
+            else
+            {
+                <a class="btn btn-default btn-info" ng-date-time-picker="@Html.DisplayFor(modelItem => item.Id)" ng-model="range">Zobacz dostępność</a>
+            }
+
             @if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
             {
                 @Html.Raw("| ");
@@ -61,5 +59,8 @@
         </td>
     </tr>
 }
-
 </table>
+@if (!@Request.IsAuthenticated)
+{
+    <div class="text-danger">* Pokoje można rezerwować tylko jako zalogowany użytkownik</div>
+}

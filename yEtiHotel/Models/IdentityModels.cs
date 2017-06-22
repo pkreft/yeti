@@ -58,7 +58,7 @@ namespace yEtiHotel.Models
                 new Room{Id = 8, Number = 17, Bedrooms = 1, Area = 43, Cost = 320, Exposure = Exposure.Western},
                 new Room{Id = 9, Number = 20, Bedrooms = 0, Area = 30, Cost = 230, Exposure = Exposure.Eastern},
                 new Room{Id = 10, Number = 21, Bedrooms = 0, Area = 28, Cost = 190, Exposure = Exposure.Northern},
-                new Room{Id = 11, Number = 21, Bedrooms = 1, Area = 41, Cost = 270, Exposure = Exposure.Northern},
+                new Room{Id = 11, Number = 22, Bedrooms = 1, Area = 41, Cost = 270, Exposure = Exposure.Northern},
                 new Room{Id = 12, Number = 23, Bedrooms = 1, Area = 30, Cost = 300, Exposure = Exposure.Western},
                 new Room{Id = 13, Number = 24, Bedrooms = 1, Area = 48, Cost = 410, Exposure = Exposure.Western},
                 new Room{Id = 14, Number = 25, Bedrooms = 2, Area = 50, Cost = 410, Exposure = Exposure.Southern},

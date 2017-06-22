@@ -20,21 +20,6 @@ namespace yEtiHotel.Controllers
             return View(db.Room.ToList());
         }
 
-        // GET: Rooms/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Room room = db.Room.Find(id);
-            if (room == null)
-            {
-                return HttpNotFound();
-            }
-            return View(room);
-        }
-
         // GET: Rooms/Create
         [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult Create()

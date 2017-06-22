@@ -6,13 +6,14 @@
 </div>
 <div class="row">
     Pokoje cieszące się największą popularnością:
-    <table class="table">
+    <table class="table" ng-controller="RoomController" ng-cloak>
         <tr>
             <th>Numer</th>
             <th>Ilość sypialni</th>
             <th>Powierzchnia</th>
             <th>Cena</th>
             <th>Ekspozycja</th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -33,24 +34,38 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Exposure)
                 </td>
+                <td>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a class="btn btn-default btn-info" ng-date-time-picker="@Html.DisplayFor(modelItem => item.Id)" ng-auth="true" ng-model="range">Rezerwuj</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-default btn-info" ng-date-time-picker="@Html.DisplayFor(modelItem => item.Id)" ng-model="range">Zobacz dostępność</a>
+                    }
+                </td>
             </tr>
         }
     </table>
+    @if (!@Request.IsAuthenticated)
+    {
+        <div class="text-danger">* Pokoje można rezerwować tylko jako zalogowany użytkownik</div>
+    }
 </div>
 <div class="row">
     <div class="col-md-4">
         <img class="room-img" src="~/Content/Images/1.jpg" />
         <h2>Nasz hotel</h2>
-        <p>Przyjazny dla każdego</p>
+        <p>Miejsce dla ukojenia zmysłów</p>
     </div>
     <div class="col-md-4">
         <img class="room-img" src="~/Content/Images/2.jpg" />
-        <h2>Piękny widokiem</h2>
+        <h2>Piękny widok</h2>
         <p>Odetchnij relaksując się widokiem gór</p>
     </div>
     <div  class="col-md-4">
         <img class="room-img" src="~/Content/Images/3.jpg" />
         <h2>Przytulne wnętrza</h2>
-        <p>U nas każdy czuje się wspaniale</p>
+        <p>U nas każdy czuje się jak w domu</p>
     </div>
 </div>
