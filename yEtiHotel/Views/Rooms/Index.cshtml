@@ -6,9 +6,12 @@
 
 <h2>Nasze pokoje</h2>
 
-<p>
-    @Html.ActionLink("Stwórz", "Create")
-</p>
+@if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
+{
+    <p>
+        @Html.ActionLink("Utwórz", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -47,9 +50,14 @@
             @Html.DisplayFor(modelItem => item.Exposure)
         </td>
         <td>
-            @Html.ActionLink("Edycja", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Skasuj", "Delete", new { id=item.Id })
+            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
+            @if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
+            {
+                @Html.Raw("| ");
+                @Html.ActionLink("Edycja", "Edit", new { id = item.Id });
+                @Html.Raw(" | ");
+                @Html.ActionLink("Skasuj", "Delete", new { id = item.Id });
+            }
         </td>
     </tr>
 }
