@@ -36,6 +36,7 @@ namespace yEtiHotel.Controllers
         }
 
         // GET: Rooms/Create
+        [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +47,7 @@ namespace yEtiHotel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult Create([Bind(Include = "Id,Number,Bedrooms,Area,Cost,Exposure")] Room room)
         {
             if (ModelState.IsValid)
@@ -59,6 +61,7 @@ namespace yEtiHotel.Controllers
         }
 
         // GET: Rooms/Edit/5
+        [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +81,7 @@ namespace yEtiHotel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult Edit([Bind(Include = "Id,Number,Bedrooms,Area,Cost,Exposure")] Room room)
         {
             if (ModelState.IsValid)
@@ -90,6 +94,7 @@ namespace yEtiHotel.Controllers
         }
 
         // GET: Rooms/Delete/5
+        [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +112,7 @@ namespace yEtiHotel.Controllers
         // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = ApplicationUser.ROLE_ADMIN)]
         public ActionResult DeleteConfirmed(int id)
         {
             Room room = db.Room.Find(id);

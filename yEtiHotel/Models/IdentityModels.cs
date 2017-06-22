@@ -12,6 +12,8 @@ namespace yEtiHotel.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public const string ROLE_ADMIN = "Admin";
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -84,7 +86,7 @@ namespace yEtiHotel.Models
             List<ApplicationUser> users = new List<ApplicationUser>();
             UserManager<ApplicationUser> manager = new ApplicationUserManager(new UserStore<ApplicationUser>());
             PasswordHasher hasher = new PasswordHasher();
-            string[] names = {"adrian", "marcin", "kuba", "piotrek", "arek", "marcel"};
+            string[] names = {"adrian", "marcin", "kuba", "piotrek", "arek", "marcel", "admin"};
 
             int userId = 1;
             foreach(string name in names)
@@ -92,6 +94,13 @@ namespace yEtiHotel.Models
                 users.Add(new ApplicationUser { Id = userId.ToString(), PasswordHash = hasher.HashPassword(name), Email = name + "@mail.pl", UserName = name + "@mail.pl", SecurityStamp = Guid.NewGuid().ToString() });
                 userId++;
             }
+
+            IdentityRole role = new IdentityRole { Id = "1", Name = ApplicationUser.ROLE_ADMIN };
+            ApplicationUser admin = users.Find(u => u.UserName == "admin@mail.pl");
+            IdentityUserRole userRole = new IdentityUserRole { RoleId = "1", UserId = admin.Id };
+            
+            admin.Roles.Add(userRole);
+            context.Roles.Add(role);
 
             users.ForEach(s => context.Users.Add(s));
             context.SaveChanges();
