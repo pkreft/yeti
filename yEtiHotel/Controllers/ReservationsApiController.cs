@@ -99,8 +99,33 @@ namespace yEtiHotel.Controllers
 
             return reservation.StartDate != null &&
                 reservation.EndDate != null &&
+                reservation.StartDate >= DateTime.Today &&
                 reservation.EndDate >= reservation.StartDate &&
-                room != null;
+                room != null &&
+                colisionDates(reservation);
+        }
+
+        private bool colisionDates(Reservation reservation)
+        {
+            var reservations = db.Reservation
+                .Where(r => r.RoomId == reservation.RoomId && r.StartDate >= DateTime.Today)
+                .Select(r => (Reservation)r)
+                .ToList();
+
+            DateTime date = reservation.StartDate;
+            while (date <= reservation.EndDate)
+            {
+                foreach (Reservation existingReservation in reservations)
+                {
+                    if (date >= existingReservation.StartDate && date <= existingReservation.EndDate)
+                    {
+                        return false;
+                    }
+                }
+                date = date.AddDays((double)1);
+            }
+
+            return true;
         }
 
         private int calculateCost(Reservation reservation)
