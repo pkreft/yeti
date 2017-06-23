@@ -66,7 +66,7 @@ app.directive('ngDateTimePicker', ['Notification', function (Notification) {
         }).on('apply.daterangepicker', function (e, picker) {
             if (auth) {
                 if (!isRangeValid(picker)) {
-                    Notification.error("Wybrany okres zawiera terminy ju¿ zarezerwowane!");
+                    Notification.error("Wybrany okres zawiera terminy ju&#x17C; zarezerwowane!");
                     element.click();
                 } else {
                     scope.makeReservation(picker, roomId);
