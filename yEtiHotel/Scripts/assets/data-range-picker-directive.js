@@ -3,22 +3,29 @@ app.directive('ngDateRangePicker', ['Notification', function (Notification) {
         var roomId = attrs.ngDateRangePicker,
             auth = (!angular.isUndefined(attrs.ngAuth) && attrs.ngAuth == "true"),
             date = new Date(),
-            compareDates = function (passedDate) {
+            compareDates = function (passedDate, owned) {
                 if (scope.availabilities[roomId]) {
-                    var stringDate = passedDate._d.toDateString();
-                    if (-1 !== scope.availabilities[roomId].indexOf(stringDate)) {
+                    var stringDate = passedDate._d.toDateString(),
+                        found = false;
+                    angular.forEach(scope.availabilities[roomId], function (reservs) {
+                        if (reservs.date == stringDate) {
+                            owned.owned = reservs.owned;
+                            found = true;
+                            return;
+                        }
+                    });
+                    if (found) {
                         return true;
                     }
                 }
 
                 return false;
-
             },
             isRangeValid = function (picker) {
                 if (scope.availabilities[roomId]) {
                     var invalid = false;
                     angular.forEach(scope.availabilities[roomId], function (availability) {
-                        var date = new Date(availability);
+                        var date = new Date(availability.date);
                         if (date > picker.startDate._d && date < picker.endDate._d) {
                             invalid = true;
                             return;
@@ -35,6 +42,7 @@ app.directive('ngDateRangePicker', ['Notification', function (Notification) {
         element.daterangepicker({
             startDate: date,
             minDate: date,
+            opens: "left",
             locale: {
                 format: 'YYYY/MM/DD',
                 applyLabel: 'Rezerwuj',
@@ -58,10 +66,19 @@ app.directive('ngDateRangePicker', ['Notification', function (Notification) {
             autoApply: !auth,
             alwaysShowCalendars: true,
             isInvalidDate: function (date) {
-                return compareDates(date);
+                return compareDates(date, false);
             },
             isCustomDate: function (date) {
-                return compareDates(date) ? 'reserved' : '';
+                var owned = {owned :false},
+                    result = compareDates(date, owned);
+
+                if (result && owned.owned) {
+                    return 'owned';
+                } else if (result) {
+                    return 'reserved';
+                }
+
+                return '';
             },
         }).on('apply.daterangepicker', function (e, picker) {
             if (auth) {

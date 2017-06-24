@@ -15,11 +15,18 @@ using Microsoft.AspNet.Identity;
 
 namespace yEtiHotel.Controllers
 {
+    public class OwnedDate
+    {
+        public string date { get; set; }
+
+        public bool owned { get; set; }
+    }
+
     public class RoomReservation
     {
         public int roomId { get; set; }
 
-        public List<string> dates { get; set; }
+        public List<OwnedDate> dates { get; set; }
     }
 
     [RoutePrefix("api")]
@@ -75,14 +82,16 @@ namespace yEtiHotel.Controllers
                 while (date <= reservation.EndDate)
                 {
                     var roomReservation = roomReservations.Find(r => r.roomId == reservation.RoomId);
+                    string userId = User.Identity.GetUserId();
+                    bool owned = userId == reservation.UserId || User.IsInRole(ApplicationUser.ROLE_ADMIN);
                     if (roomReservation != null)
                     {
-                        roomReservation.dates.Add(date.ToShortDateString());
+                        roomReservation.dates.Add(new OwnedDate { date = date.ToShortDateString(), owned = owned });
                     }
                     else
                     {
-                        List<string> list = new List<string>();
-                        list.Add(date.ToShortDateString());
+                        List<OwnedDate> list = new List<OwnedDate>();
+                        list.Add(new OwnedDate { date = date.ToShortDateString(), owned = owned });
                         roomReservations.Add(new RoomReservation { roomId = reservation.RoomId, dates = list });
                     }
                     date = date.AddDays((double)1);

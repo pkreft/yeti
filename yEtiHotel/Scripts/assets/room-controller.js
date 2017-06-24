@@ -18,7 +18,10 @@ app.controller("RoomController",
                 angular.forEach(response.data, function (roomReservations) {
                     $scope.availabilities[roomReservations.roomId] = [];
                     angular.forEach(roomReservations.dates, function (date) {
-                        $scope.availabilities[roomReservations.roomId].push((new Date(date)).toDateString());
+                        $scope.availabilities[roomReservations.roomId].push({
+                            date: (new Date(date.date)).toDateString(),
+                            owned: date.owned,
+                        });
                     });
                 });
             }
