@@ -1,66 +1,61 @@
-﻿@model IEnumerable<yEtiHotel.Models.Room>
-
-@{
+﻿@{
     ViewBag.Title = "Nasze pokoje";
 }
 
 <h2>Nasze pokoje</h2>
+<div ng-init="fetch=true">
+    <div ng-controller="RoomController" ng-cloak>
+        <a class="btn btn-default btn-info" ng-date-range-search-picker="" ng-model="rangeSearch">Szukaj</a>
 
-@if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
-{
-    <p>
-        @Html.ActionLink("Utwórz", "Create")
-    </p>
-}
-<table class="table" ng-controller="RoomController" ng-cloak>
-    <tr>
-        <th>Numer</th>
-        <th>Ilość sypialni</th>
-        <th>Powierzchnia</th>
-        <th>Cena</th>
-        <th>Ekspozycja</th>
-        <th></th>
-    </tr>
+        <table class="table">
+            <tr>
+                <th>Numer</th>
+                <th>Ilość sypialni</th>
+                <th>Powierzchnia</th>
+                <th>Cena</th>
+                <th>Ekspozycja</th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bedrooms)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Area)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Exposure)
-        </td>
-        <td>
-            @if (Request.IsAuthenticated)
+            <tr ng-repeat="room in rooms">
+                <td>
+                    {{ room.Number }}
+                </td>
+                <td>
+                    {{ room.Bedrooms }}
+                </td>
+                <td>
+                    {{ room.Area }}
+                </td>
+                <td>
+                    {{ room.Cost }}
+                </td>
+                <td>
+                    {{ exposure(room.Exposure) }}
+                </td>
+                <td>
+                    @if (Request.IsAuthenticated)
             {
-                <a class="btn btn-default btn-info" ng-date-range-picker="@Html.DisplayFor(modelItem => item.Id)" ng-auth="true" ng-model="range">Rezerwuj</a>
-            }
-            else
-            {
-                <a class="btn btn-default btn-info" ng-date-range-picker="@Html.DisplayFor(modelItem => item.Id)" ng-model="range">Zobacz dostępność</a>
-            }
+                        <a class="btn btn-default btn-info" ng-date-range-picker="{{ room.Id }}" ng-auth="true" ng-model="range">Rezerwuj</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-default btn-info" ng-date-range-picker="{{ room.Id }}" ng-model="range">Zobacz dostępność</a>
+                    }
 
-            @if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
-            {
-                @Html.Raw("| ");
-                @Html.ActionLink("Edycja", "Edit", new { id = item.Id });
-                @Html.Raw(" | ");
-                @Html.ActionLink("Skasuj", "Delete", new { id = item.Id });
-            }
-        </td>
-    </tr>
-}
-</table>
-@if (!@Request.IsAuthenticated)
-{
-    <div class="text-danger">* Pokoje można rezerwować tylko jako zalogowany użytkownik</div>
-}
+                    @if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
+                    {
+                        @Html.Raw("| ");
+                        <a href="/Rooms/Edit/{{ room.Id }}">Edycja</a>
+                        @Html.Raw(" | ");
+                        <a href="/Rooms/Delete/{{ room.Id }}">Edycja</a>
+                    }
+                </td>
+            </tr>
+        </table>
+        @if (!@Request.IsAuthenticated)
+        {
+            <div class="text-danger">* Pokoje można rezerwować tylko jako zalogowany użytkownik</div>
+        }
+    </div>
+</div>

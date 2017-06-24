@@ -185,6 +185,7 @@
     <Compile Include="Controllers\ReservationsApiController.cs" />
     <Compile Include="Controllers\ReservationsAdminController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
+    <Compile Include="Controllers\RoomsApiController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,7 @@
     <Content Include="Content\dist\.gitkeep" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Scripts\assets\data-picker-directive.js" />
+    <Content Include="Scripts\assets\data-range-search-picker-directive.js" />
     <Content Include="Scripts\assets\data-range-picker-directive.js" />
     <Content Include="Scripts\assets\room-controller.js" />
     <Content Include="Scripts\assets\app.js" />
