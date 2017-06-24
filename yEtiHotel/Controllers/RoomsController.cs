@@ -17,7 +17,7 @@ namespace yEtiHotel.Controllers
         // GET: Rooms
         public ActionResult Index()
         {
-            return View(db.Room.ToList());
+            return View();
         }
 
         // GET: Rooms/Create

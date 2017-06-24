@@ -59,7 +59,6 @@ namespace yEtiHotel.Controllers
             db.Reservation.Add(reservation);
             db.SaveChanges();
 
-
             return GetRoomReservations();
         }
 
@@ -108,7 +107,7 @@ namespace yEtiHotel.Controllers
         private bool colisionDates(Reservation reservation)
         {
             var reservations = db.Reservation
-                .Where(r => r.RoomId == reservation.RoomId && r.StartDate >= DateTime.Today)
+                .Where(r => r.RoomId == reservation.RoomId && r.EndDate >= DateTime.Today)
                 .Select(r => (Reservation)r)
                 .ToList();
 

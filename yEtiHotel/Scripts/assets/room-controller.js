@@ -108,5 +108,51 @@ app.controller("RoomController",
                     }
                 );
             }
+
+            if (!angular.isUndefined($scope.fetch) && $scope.fetch == true) {
+                $http.get('/api/rooms').then(
+                    function (response) {
+                        $scope.rooms = response.data;
+                    },
+                    function () {
+                        Notification.error(message);
+                    }
+                );
+            }
+
+            /**
+             * @method search
+             */
+            $scope.search = function (picker) {
+                var range = {
+                    startDate: moment(picker.startDate._d.toISOString()).format("YYYY-MM-DD"),
+                    endDate: moment(picker.endDate._d.toISOString()).format("YYYY-MM-DD"),
+                }
+                $http.post(
+                    '/api/rooms/search',
+                    $httpParamSerializerJQLike(range),
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    }
+                ).then(
+                    function (response) {
+                        $scope.rooms = response.data;
+                    },
+                    function () {
+                        Notification.error(message);
+                    }
+                );
+            }
+
+            /**
+             * @method exposure
+             */
+            $scope.exposure = function (id) {
+                var exposures = ["Polnocna", 'Wschodnia', 'Poludniowa', 'Zachodnia']
+
+                return exposures[id];
+            }
     }]
 );
