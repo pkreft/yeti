@@ -2,10 +2,18 @@ app.directive('ngDatePicker', function () {
     return function (scope, element, attrs) {
         var roomId = attrs.ngDatePicker,
             date = new Date(),
-            compareDates = function (passedDate) {
+            compareDates = function (passedDate, owned) {
                 if (scope.availabilities[roomId]) {
-                    var stringDate = passedDate._d.toDateString();
-                    if (-1 !== scope.availabilities[roomId].indexOf(stringDate)) {
+                    var stringDate = passedDate._d.toDateString(),
+                        found = false;
+                    angular.forEach(scope.availabilities[roomId], function (reservs) {
+                        if (reservs.date == stringDate) {
+                            owned.owned = reservs.owned;
+                            found = true;
+                            return;
+                        }
+                    });
+                    if (found) {
                         return true;
                     }
                 }
@@ -34,8 +42,29 @@ app.directive('ngDatePicker', function () {
                     "Grudzie&#x144;",
                 ],
             },
+            isInvalidDate: function (date) {
+                var owned = { owned: false },
+                    result = compareDates(date, owned);
+
+                if (result && owned.owned) {
+                    return false;
+                } else if (result) {
+                    return true;
+                }
+
+                return false;
+            },
             isCustomDate: function (date) {
-                return compareDates(date) ? 'reserved' : '';
+                var ownes = { owned: false },
+                    result = compareDates(date, ownes.owned);
+
+                if (result && ownes.owned) {
+                    return 'owned';
+                } else if (result) {
+                    return 'reserved';
+                }
+
+                return '';
             },
         });
     }
