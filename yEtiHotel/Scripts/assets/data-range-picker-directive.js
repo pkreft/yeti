@@ -1,11 +1,11 @@
-app.directive('ngDateTimePicker', ['Notification', function (Notification) {
+app.directive('ngDateRangePicker', ['Notification', function (Notification) {
     return function (scope, element, attrs) {
-        var roomId = attrs.ngDateTimePicker,
+        var roomId = attrs.ngDateRangePicker,
             auth = (!angular.isUndefined(attrs.ngAuth) && attrs.ngAuth == "true"),
             date = new Date(),
             compareDates = function (passedDate) {
                 if (scope.availabilities[roomId]) {
-                    var stringDate = passedDate._d.toDateString()
+                    var stringDate = passedDate._d.toDateString();
                     if (-1 !== scope.availabilities[roomId].indexOf(stringDate)) {
                         return true;
                     }

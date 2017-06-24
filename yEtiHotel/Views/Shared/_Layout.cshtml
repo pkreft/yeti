@@ -22,6 +22,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Pokoje", "Index", "Rooms")</li>
+                    @if (User.IsInRole(yEtiHotel.Models.ApplicationUser.ROLE_ADMIN))
+                    {
+                        <li>@Html.ActionLink("Rezerwacje", "Index", "ReservationsAdmin")</li>
+                    } else if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Moje rezerwacje", "Index", "Reservations")</li>
+                    }
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

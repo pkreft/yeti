@@ -1,0 +1,44 @@
+﻿@model IEnumerable<yEtiHotel.Models.Reservation>
+
+@{
+    ViewBag.Title = "Rezerwacje";
+}
+
+<h2>Rezerwacje</h2>
+
+<table class="table">
+    <tr>
+        <th>Numer pokoju</th>
+        <th>E-mail</th>
+        <th>Koszt</th>
+        <th>Data rozpoczęcia</th>
+        <th>Data zakończenia</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Room.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edycja", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Odwołaj", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+

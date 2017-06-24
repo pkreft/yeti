@@ -1,0 +1,63 @@
+﻿@model yEtiHotel.Models.Reservation
+
+@{
+    ViewBag.Title = "Odwołanie rezerwacji";
+}
+
+<h2>Odwołanie rezerwacji</h2>
+
+<h3>Czy na pewno chcesz odwołać tę rezerwację?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Numer pokoju
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.Number)
+        </dd>
+
+        <dt>
+            E-mail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            Koszt
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            Data rozpoczęcia
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            Data zakończenia
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Odwołaj" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót", "Index")
+        </div>
+    }
+</div>
